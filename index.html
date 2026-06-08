@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kutoka kwa Wilbard kwenda kwa Irene</title>
+    <style>
+        /* CSS ya Mandhari Kuu ya Usiku wenye hisia */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #0f0511, #24041d, #3d051a, #110214);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #622020;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* TEXT WATERMARK: Majina ya "Wilbard & Irene" yakijirudia kwa siri nyuma */
+        .background-watermark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: space-around;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            opacity: 0.03; /* Siri kabisa isisumbue macho */
+            font-weight: 900;
+            font-size: 50px;
+            letter-spacing: 7px;
+            transform: rotate(-15deg);
+        }
+
+        .watermark-item {
+            padding: 45px;
+            white-space: nowrap;
+        }
+
+        /* Kadi Inayong'aa na Kudunda (Glassmorphism + Neon Glow) */
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.1), 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            max-width: 550px;
+            width: 85%;
+            text-align: center;
+            z-index: 10;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: cardPulse 4s ease-in-out infinite;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 0 40px rgba(255, 77, 109, 0.25), 0 25px 60px rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 77, 109, 0.3);
+        }
+
+        @keyframes cardPulse {
+            0% { box-shadow: 0 0 25px rgba(255, 77, 109, 0.1), 0 20px 50px rgba(0, 0, 0, 0.6); }
+            50% { box-shadow: 0 0 45px rgba(255, 77, 109, 0.25), 0 20px 50px rgba(0, 0, 0, 0.6); }
+            100% { box-shadow: 0 0 25px rgba(255, 77, 109, 0.1), 0 20px 50px rgba(0, 0, 0, 0.6); }
+        }
+
+        h1 {
+            color: #ff758f;
+            font-size: 26px;
+            margin-top: 0;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 117, 143, 0.4);
+        }
+
+        /* Eneo la kujitengeneza kwa maneno (Typewriter View) */
+        .message-container {
+            min-height: 250px; /* Inazuia kadi kurukaruka wakati maneno yanaandikwa */
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 20px;
+            border-left: 4px solid #ff4d6d;
+            text-align: justify;
+        }
+
+        .message-box {
+            font-size: 15.5px;
+            line-height: 1.8;
+            color: #ffe5ec;
+            display: inline;
+        }
+
+        /* Cursor inayowaka na kuzima mwishoni mwa neno linaloandikwa */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #ff4d6d;
+            margin-left: 3px;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Kitufe cha Kisasa */
+        .btn-love {
+            background: linear-gradient(45deg, #ff4d6d, #c9184a);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0; /* Kitufe kitatokea kikishamaliza kuandika */
+            transform: translateY(20px);
+        }
+
+        .btn-love.show {
+            opacity: 1;
+            transform: translateY(0);
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .btn-love:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 77, 109, 0.6);
+        }
+
+        /* Vipande vya vitu vinavyoanguka (Hearts & Glows) */
+        .kolokolo {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(105vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Watermark Background -->
+    <div class="background-watermark">
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+        <div class="watermark-item">WILBARD & IRENE</div>
+    </div>
+
+    <!-- Kadi ya Maongezi -->
+    <div class="card" id="mainCard">
+        <h1 id="mainTitle"> <span style="color: rgb(120, 54, 219);font-family: 'Lucida Sans', 'Lucida Sans;">IRENE</span><i> my love 💞💞💞💞</i> <span style="color: magenta;">Naomba unisamehe</span> 🙏🙏🙏🙏🙏🙏🙏</h1>
+        
+        <div class="message-container">
+            <span class="message-box" id="msgBox"></span><span class="cursor" id="cursor"></span>
+        </div>
+
+        <button class="btn-love" id="actionBtn" onclick="acceptApology()">Bonyeza apa kama umenisamehe Wilbard Wako 🌹</button>
+    </div>
+
+    <script>
+        // Barua iliyoshiba hisia kali ya typewriter
+        const textToType = "Mpenzi wangu Irene, naomba unisamehe bure. Nimekaa hapa natafakari na nimegundua kuwa uko sahihi kabisa kuwa na hasira na mimi, na huna kosa hata kidogo kunijibu kwa ubaridi huo. Ni kosa langu mimi mwanaume wako, nilitakiwa kupambana na ule uchovu wote wa masomo au kazi ili nisisitishe mazungumzo yetu mazuri, lakini nilizidiwa na nikasababisha ukimya uliokukwaza.\n\nInauma sana kuona nimekuwa chanzo cha kukuharibia mood yako, wakati jukumu langu la kwanza ni kulinda tabasamu lako kila sekunde. Naomba uupokee msamaha wangu wa dhati kabisa mpenzi wangu.\n\nHapa nilipo sina amani kabisa... ngoja tu nishushe chandarua changu nilale kwa unyonge huu, nikiomba na kuamini kuwa kesho utaniamkia ukiwa na tabasamu jipya. Samahani sana mpenzi wangu wa faida... ❤️";
+        
+        let index = 0;
+        const speed = 14; // Kasi ya uandishi wa kila herufi (kwa milliseconds)
+        const msgBox = document.getElementById('msgBox');
+        const actionBtn = document.getElementById('actionBtn');
+        const cursor = document.getElementById('cursor');
+
+        // Logic ya Typewriter Effect
+        function typeWriter() {
+            if (index < textToType.length) {
+                if (textToType.charAt(index) === '\n') {
+                    msgBox.innerHTML += '<br>';
+                } else {
+                    msgBox.innerHTML += textToType.charAt(index);
+                }
+                index++;
+                setTimeout(typeWriter, speed);
+            } else {
+                // Ikimaliza kuandika, onyesha kitufe kwa madoido na zima cursor
+                cursor.style.display = 'none';
+                actionBtn.classList.add('show');
+            }
+        }
+
+        // Makolokolo ya background (Falling items)
+        const items = ['🌹', '✨', '💖', '🌸', '🎈', '💎'];
+        function startFallingEffects() {
+            setInterval(() => {
+                const kolokolo = document.createElement('div');
+                kolokolo.classList.add('kolokolo');
+                kolokolo.innerHTML = items[Math.floor(Math.random() * items.length)];
+                kolokolo.style.left = Math.random() * 100 + 'vw';
+                kolokolo.style.top = '-20px';
+                kolokolo.style.fontSize = Math.random() * 20 + 12 + 'px';
+                kolokolo.style.animationDuration = Math.random() * 3 + 4 + 's';
+                document.body.appendChild(kolokolo);
+                setTimeout(() => { kolokolo.remove(); }, 7000);
+            }, 300);
+        }
+
+        // Anza kila kitu ukurasa ukifunguka
+        window.onload = function() {
+            startFallingEffects();
+            setTimeout(typeWriter, 1000); // Inasubiri sekunde 1 kabla ya kuanza kuandika
+        };
+
+        // Hatua ya kubonyeza kitufe cha kusamehe
+        function acceptApology() {
+            const title = document.getElementById('mainTitle');
+            const btn = document.getElementById('actionBtn');
+            cursor.style.display = 'none';
+            
+            title.innerHTML = "Asante kwa Kunisamehe, My Queen! I love you🥰💖";
+            msgBox.innerHTML = "Umeufanya moyo wa Wilbard wako urudishe amani yake yote usiku wa leo. Ahadi yangu kwako iko palepale: Nitaendelea kukuheshimu, kukulinda, na kukupa furaha inayostahili kila siku ya maisha yetu. Lala salama mpenzi wangu wa faida! 💑🌹✨";
+            
+            btn.innerHTML = "Sasa Tuna Amani Kabisa! ✔️";
+            btn.style.background = 'linear-gradient(45deg, #2a9d8f, #1e352f)';
+            btn.style.pointerEvents = 'none';
+
+            // Mlipuko wa makolokolo mazito (Super Confetti Burst)
+            for (let i = 0; i < 1200; i++) {
+                setTimeout(() => {
+                    const burst = document.createElement('div');
+                    burst.classList.add('kolokolo');
+                    burst.innerHTML = ['💖', '💝', '✨', '👑', '🎉'][Math.floor(Math.random() * 5)];
+                    burst.style.left = Math.random() * 100 + 'vw';
+                    burst.style.top = Math.random() * 20 - 20 + 'px';
+                    burst.style.fontSize = Math.random() * 30 + 15 + 'px';
+                    burst.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+                    document.body.appendChild(burst);
+                    setTimeout(() => { burst.remove(); }, 3000);
+                }, i * 15);
+            }
+        }
+    </script>
+</body>
+</html>
